@@ -2,21 +2,29 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchSingleArticle } from "../../api";
 import Comments from "./Comments";
+import Loading from "./Loading";
 
 export default function SingleArticle() {
   const [currArticle, setCurrArticle] = useState({});
   const [showComments, setShowComments] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { article_id } = useParams();
 
   useEffect(() => {
+    setIsLoading(true);
     fetchSingleArticle(article_id).then((articleById) => {
       setCurrArticle(articleById);
+      setIsLoading(false);
     });
   }, [article_id]);
 
   const toggleComments = () => {
     setShowComments((currentState) => !currentState);
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <section className="single-article-grid">
