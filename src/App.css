@@ -41,6 +41,36 @@
   color: #888;
 }
 
+/************ Articles ************/
+
 .article-list {
   list-style: none;
+}
+
+.article-card {
+  border-top: 2px white solid;
+  border-bottom: 2px white solid;
+}
+
+/************ SingleArticle ************/
+
+/* .single-article-grid {
+
+} */
+
+.single-article-header {
+  color: white;
+  border-top: 2px white solid;
+  padding-top: 13px;
+}
+
+.single-article-text {
+  border: 2px white solid;
+  border-left: none;
+  padding: 40px;
+  border-right: none;
+}
+
+.single-article-img {
+  max-width: 50%;
 }
