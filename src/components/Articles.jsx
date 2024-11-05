@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { fetchArticles } from "../../api";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
-import SingleArticle from "./SingleArticle";
 
 export default function Articles() {
   const [currArticles, setCurrArticles] = useState([]);

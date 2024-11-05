@@ -15,3 +15,9 @@ export function fetchSingleArticle(article_id) {
     return response.data.article;
   });
 }
+
+export function fetchArticleComments(article_id) {
+  return apiClient.get(`/articles/${article_id}/comments`).then((response) => {
+    return response.data.comments;
+  });
+}
