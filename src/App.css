@@ -74,3 +74,13 @@
 .single-article-img {
   max-width: 50%;
 }
+
+/************ Comments ************/
+
+.comment-list {
+  list-style: none;
+}
+
+.comment-card {
+  border: 2px white solid;
+}
