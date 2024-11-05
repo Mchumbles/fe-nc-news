@@ -2,15 +2,23 @@ import { useEffect, useState } from "react";
 import { fetchArticles } from "../../api";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
+import Loading from "./Loading";
 
 export default function Articles() {
   const [currArticles, setCurrArticles] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     fetchArticles().then((articles) => {
       setCurrArticles(articles);
+      setIsLoading(false);
     });
   }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <section>
