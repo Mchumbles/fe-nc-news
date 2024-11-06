@@ -41,6 +41,17 @@
   color: #888;
 }
 
+/************ Header ************/
+
+#header {
+  background-color: brown;
+}
+
+.avatar-img {
+  width: 20%;
+  border-radius: 8px;
+}
+
 /************ Articles ************/
 
 .article-list {
@@ -83,4 +94,24 @@
 
 .comment-card {
   border: 2px white solid;
+}
+
+/************ Users ************/
+
+.users-list {
+  list-style: none;
+}
+
+.users-card {
+  border-top: 2px white solid;
+  border-bottom: 2px white solid;
+}
+
+.users-avatar {
+  width: 50%;
+  border-radius: 8px;
+}
+
+.users-header {
+  padding-bottom: 20px;
 }

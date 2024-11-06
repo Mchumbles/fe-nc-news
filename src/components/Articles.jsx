@@ -32,7 +32,7 @@ export default function Articles() {
             </Card.Header>
             <Card.Text>{`Topic: ${article.topic}`}</Card.Text>
             <Card.Text>{`Author: ${article.author}`}</Card.Text>
-            <Card.Text>{`Date Posted: ${article.created_at}`}</Card.Text>
+            <Card.Text>{`Date Posted: ${article.formattedDate}`}</Card.Text>
           </Card>
         ))}
       </ul>

@@ -31,7 +31,7 @@ export default function Comments(props) {
             </Card.Header>
             <Card.Text>{comment.body}</Card.Text>
             <Card.Text>{`Votes: ${comment.votes}`}</Card.Text>
-            <Card.Text>{`Date commented: ${comment.created_at}`}</Card.Text>
+            <Card.Text>{`Date commented: ${comment.formattedDate}`}</Card.Text>
           </Card>
         );
       })}
