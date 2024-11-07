@@ -4,6 +4,7 @@ import { Card } from "react-bootstrap";
 import Loading from "./Loading";
 import PostArticleComment from "./PostArticleComment";
 import { UserContext } from "../contexts/user";
+import DeleteArticleComment from "./DeleteArticleComment";
 
 export default function Comments(props) {
   const { article_id } = props;
@@ -36,16 +37,33 @@ export default function Comments(props) {
       )}
       <ul className="comment-list">
         {currComments.map((comment) => {
-          return (
-            <Card className="comment-card" key={comment.comment_id}>
-              <Card.Header>
-                <Card.Title>{`Comment author: ${comment.author}`}</Card.Title>
-              </Card.Header>
-              <Card.Text>{comment.body}</Card.Text>
-              <Card.Text>{`Votes: ${comment.votes}`}</Card.Text>
-              <Card.Text>{`Date commented: ${comment.formattedDate}`}</Card.Text>
-            </Card>
-          );
+          if (comment.body === null) {
+            return (
+              <Card className="comment-card-delete" key={comment.comment_id}>
+                <Card.Header>
+                  <Card.Title>{"Comment successfully deleted"}</Card.Title>
+                </Card.Header>
+              </Card>
+            );
+          } else {
+            return (
+              <Card className="comment-card" key={comment.comment_id}>
+                <Card.Header>
+                  <Card.Title>{`Comment author: ${comment.author}`}</Card.Title>
+                </Card.Header>
+                <Card.Text>{comment.body}</Card.Text>
+                <Card.Text>{`Votes: ${comment.votes}`}</Card.Text>
+                <Card.Text>{`Date commented: ${comment.formattedDate}`}</Card.Text>
+                {isLoggedIn && loggedInUser.username === comment.author ? (
+                  <DeleteArticleComment
+                    comment_id={comment.comment_id}
+                    setCurrComments={setCurrComments}
+                    currComments={currComments}
+                  />
+                ) : null}
+              </Card>
+            );
+          }
         })}
       </ul>
     </section>
