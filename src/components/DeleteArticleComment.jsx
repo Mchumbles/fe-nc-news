@@ -24,7 +24,7 @@ export default function DeleteArticleComment(props) {
         setCompleteDelMsg("Comment successfully deleted");
         const filteredComments = currComments.map((comment) => {
           if (comment.comment_id === comment_id) {
-            return { ...comment, body: null };
+            return { ...comment, deleted: true };
           }
           return comment;
         });

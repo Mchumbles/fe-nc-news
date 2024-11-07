@@ -37,7 +37,7 @@ export default function Comments(props) {
       )}
       <ul className="comment-list">
         {currComments.map((comment) => {
-          if (comment.body === null) {
+          if (comment.deleted) {
             return (
               <Card className="comment-card-delete" key={comment.comment_id}>
                 <Card.Header>

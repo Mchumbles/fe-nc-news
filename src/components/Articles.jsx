@@ -30,7 +30,9 @@ export default function Articles() {
                 <Card.Title>{article.title}</Card.Title>
               </Link>
             </Card.Header>
-            <Card.Text>{`Topic: ${article.topic}`}</Card.Text>
+            <Link to={`/topics/${article.topic}`}>
+              <Card.Text>{`Topic: ${article.topic}`}</Card.Text>
+            </Link>
             <Card.Text>{`Author: ${article.author}`}</Card.Text>
             <Card.Text>{`Date Posted: ${article.formattedDate}`}</Card.Text>
           </Card>
