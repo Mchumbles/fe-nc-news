@@ -6,7 +6,7 @@ export default function Header() {
   return (
     <header id="header">
       <h1>NC NEWS</h1>
-      <p>Welcome {isLoggedIn ? loggedInUser.username : "guest"}</p>
+      <h2>Welcome {isLoggedIn ? loggedInUser.username : "guest"}</h2>
       {isLoggedIn ? (
         <img
           className="avatar-img"

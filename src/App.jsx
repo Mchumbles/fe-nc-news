@@ -7,6 +7,8 @@ import Home from "./components/Home";
 import Articles from "./components/Articles";
 import SingleArticle from "./components/SingleArticle";
 import Users from "./components/Users";
+import Topics from "./components/Topics";
+import ArticlesByTopic from "./components/ArticlesByTopic";
 import "./App.css";
 
 function App() {
@@ -22,6 +24,8 @@ function App() {
           <Route path="/articles" element={<Articles />} />
           <Route path="/articles/:article_id" element={<SingleArticle />} />
           <Route path="/users" element={<Users />} />
+          <Route path="/topics" element={<Topics />} />
+          <Route path="/topics/:slug" element={<ArticlesByTopic />} />
         </Routes>
       </div>
     </UserContext.Provider>
