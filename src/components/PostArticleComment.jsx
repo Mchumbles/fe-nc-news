@@ -19,7 +19,7 @@ export default function PostArticleComment(props) {
     setPostSuccessful("");
 
     const optimisticComment = {
-      id: Date.now(),
+      comment_id: Date.now(),
       author: loggedInUser.username,
       body: newCommentValue,
       votes: 0,

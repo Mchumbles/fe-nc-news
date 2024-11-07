@@ -96,6 +96,11 @@
   border: 2px white solid;
 }
 
+.comment-card-delete {
+  border: 2px red solid;
+  color: red;
+}
+
 /************ Users ************/
 
 .users-list {

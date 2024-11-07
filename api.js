@@ -59,3 +59,9 @@ export function sendArticleComment(article_id, user, comment) {
       return Promise.reject(error);
     });
 }
+
+export function deleteArticleComment(comment_id) {
+  return apiClient.delete(`/comments/${comment_id}`).catch((error) => {
+    return Promise.reject(error);
+  });
+}
