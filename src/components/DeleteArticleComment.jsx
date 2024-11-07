@@ -1,5 +1,5 @@
 import { UserContext } from "../contexts/user";
-import { useEffect, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { deleteArticleComment } from "../../api";
 
 export default function DeleteArticleComment(props) {

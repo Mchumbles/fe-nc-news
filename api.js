@@ -65,3 +65,30 @@ export function deleteArticleComment(comment_id) {
     return Promise.reject(error);
   });
 }
+
+export function fetchTopics() {
+  return apiClient
+    .get("/topics")
+    .then((response) => {
+      return response.data.topics;
+    })
+    .catch((error) => {
+      return Promise.reject(error);
+    });
+}
+
+export function fetchArticleByTopic(topic) {
+  return apiClient.get(`/articles`).then((response) => {
+    const filteredArticles = response.data.articles.filter((article) => {
+      if (article.topic === topic) {
+        return article;
+      }
+    });
+    const formattedArticles = filteredArticles.map((article) => {
+      const articleDate = new Date(article.created_at);
+      const formattedDate = articleDate.toLocaleString();
+      return { ...article, formattedDate };
+    });
+    return formattedArticles;
+  });
+}

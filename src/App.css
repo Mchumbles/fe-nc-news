@@ -50,6 +50,17 @@
 .avatar-img {
   width: 20%;
   border-radius: 8px;
+  padding: 10px;
+}
+
+/************ NavBar ************/
+
+.nav-link {
+  padding: 10px;
+}
+
+.nav-bar {
+  background-color: brown;
 }
 
 /************ Articles ************/
@@ -119,4 +130,10 @@
 
 .users-header {
   padding-bottom: 20px;
+}
+
+/************ Topics ************/
+
+.topics-card {
+  border: 2px white solid;
 }
