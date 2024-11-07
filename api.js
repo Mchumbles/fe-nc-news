@@ -48,3 +48,14 @@ export function updateArticleVotes(article_id, voteInc) {
       return Promise.reject(error);
     });
 }
+
+export function sendArticleComment(article_id, user, comment) {
+  return apiClient
+    .post(`/articles/${article_id}/comments`, {
+      username: user,
+      body: comment,
+    })
+    .catch((error) => {
+      return Promise.reject(error);
+    });
+}
