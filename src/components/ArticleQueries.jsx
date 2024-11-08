@@ -13,7 +13,7 @@ export default function ArticleQueries(props) {
     <section>
       <form>
         <div className="filter-desc-asc">
-          <p>Filters</p>
+          <p>Sort and Order</p>
           <label htmlFor="order-desc">Descending:</label>
           <input
             className="filter-input"
