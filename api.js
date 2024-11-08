@@ -4,8 +4,12 @@ const apiClient = axios.create({
   baseURL: "https://be-nc-news-mwge.onrender.com/api",
 });
 
-export function fetchArticles() {
-  return apiClient.get("/articles").then((response) => {
+export function fetchArticles(order = "desc", sort_by = "created_at") {
+  const params = {
+    order: order,
+    sort_by: sort_by,
+  };
+  return apiClient.get("/articles", { params }).then((response) => {
     const formattedArticles = response.data.articles.map((article) => {
       const articleDate = new Date(article.created_at);
       const formattedDate = articleDate.toLocaleString();
@@ -77,8 +81,16 @@ export function fetchTopics() {
     });
 }
 
-export function fetchArticleByTopic(topic) {
-  return apiClient.get(`/articles`).then((response) => {
+export function fetchArticleByTopic(
+  topic,
+  order = "desc",
+  sort_by = "created_at"
+) {
+  const params = {
+    order: order,
+    sort_by: sort_by,
+  };
+  return apiClient.get(`/articles`, { params }).then((response) => {
     const filteredArticles = response.data.articles.filter((article) => {
       if (article.topic === topic) {
         return article;

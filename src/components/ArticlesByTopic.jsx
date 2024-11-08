@@ -4,19 +4,22 @@ import Loading from "./Loading";
 import { fetchArticleByTopic } from "../../api";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import ArticleQueries from "./ArticleQueries";
 
 export default function ArticlesByTopic() {
   const { slug } = useParams();
   const [currArticles, setCurrArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [sortBy, setSortBy] = useState("created_at");
+  const [order, setOrder] = useState("desc");
 
   useEffect(() => {
     setIsLoading(true);
-    fetchArticleByTopic(slug).then((articles) => {
+    fetchArticleByTopic(slug, order, sortBy).then((articles) => {
       setCurrArticles(articles);
       setIsLoading(false);
     });
-  }, [slug]);
+  }, [slug, order, sortBy]);
 
   if (isLoading) {
     return <Loading />;
@@ -24,6 +27,13 @@ export default function ArticlesByTopic() {
 
   return (
     <section>
+      <ArticleQueries
+        setOrder={setOrder}
+        order={order}
+        setSortBy={setSortBy}
+        sortBy={sortBy}
+        topics={true}
+      />
       <ul className="article-list">
         {currArticles.map((article) => (
           <Card className="article-card" key={article.article_id}>
