@@ -137,3 +137,18 @@
 .topics-card {
   border: 2px white solid;
 }
+
+/************ ArticleQueries ************/
+
+.filter-desc-asc {
+  padding: 5px;
+}
+
+.filter-sort-by {
+  padding: 5px;
+}
+
+.filter-input {
+  margin-right: 20px;
+}
+/* Testing */
