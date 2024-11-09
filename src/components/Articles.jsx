@@ -4,23 +4,38 @@ import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 import Loading from "./Loading";
 import ArticleQueries from "./ArticleQueries";
+import Error from "./Error";
 
 export default function Articles() {
   const [currArticles, setCurrArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [sortBy, setSortBy] = useState("created_at");
   const [order, setOrder] = useState("desc");
+  const [isError, setIsError] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
-    fetchArticles(order, sortBy).then((articles) => {
-      setCurrArticles(articles);
-      setIsLoading(false);
-    });
+    fetchArticles(order, sortBy)
+      .then((articles) => {
+        setCurrArticles(articles);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsError("An error occurred while fetching articles");
+        setIsLoading(false);
+      });
   }, [order, sortBy]);
 
   if (isLoading) {
     return <Loading />;
+  }
+
+  if (isError) {
+    return <Error msg={isError} />;
+  }
+
+  if (currArticles.length === 0) {
+    return <h2>No Articles Found</h2>;
   }
 
   return (

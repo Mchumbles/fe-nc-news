@@ -4,6 +4,7 @@ import { fetchSingleArticle, updateArticleVotes } from "../../api";
 import Comments from "./Comments";
 import Loading from "./Loading";
 import { UserContext } from "../contexts/user";
+import Error from "./Error";
 
 export default function SingleArticle() {
   const [currArticle, setCurrArticle] = useState({});
@@ -16,14 +17,26 @@ export default function SingleArticle() {
   const [loginPrompt, setLoginPrompt] = useState("");
   const { article_id } = useParams();
   const { isLoggedIn } = useContext(UserContext);
+  const [isError, setIsError] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
-    fetchSingleArticle(article_id).then((articleById) => {
-      setCurrArticle(articleById);
-      setVotes(articleById.votes);
-      setIsLoading(false);
-    });
+    fetchSingleArticle(article_id)
+      .then((articleById) => {
+        setCurrArticle(articleById);
+        setVotes(articleById.votes);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        if (error.status === 400) {
+          setIsError("Bad request");
+        } else if (error.status === 404) {
+          setIsError("Article not found");
+        } else {
+          setIsError("An error occurred while fetching the article");
+        }
+        setIsLoading(false);
+      });
   }, [article_id]);
 
   const toggleComments = () => {
@@ -84,6 +97,14 @@ export default function SingleArticle() {
 
   if (isLoading) {
     return <Loading />;
+  }
+
+  if (isError) {
+    return <Error msg={isError} />;
+  }
+
+  if (currArticle.length === 0) {
+    return <h2>It doesn't look like this article exists!</h2>;
   }
 
   return (
