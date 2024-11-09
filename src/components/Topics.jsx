@@ -3,21 +3,36 @@ import Loading from "./Loading";
 import { fetchTopics } from "../../api";
 import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
+import Error from "./Error";
 
 export default function Topics() {
   const [currTopics, setCurrTopics] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
-    fetchTopics().then((topics) => {
-      setCurrTopics(topics);
-      setIsLoading(false);
-    });
+    fetchTopics()
+      .then((topics) => {
+        setCurrTopics(topics);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsError("An error occurred while fetching topics");
+        setIsLoading(false);
+      });
   }, []);
 
   if (isLoading) {
     return <Loading />;
+  }
+
+  if (isError) {
+    return <Error msg={isError} />;
+  }
+
+  if (currTopics.length === 0) {
+    return <h2>No Topics Found</h2>;
   }
 
   return (

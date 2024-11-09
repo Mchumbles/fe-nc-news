@@ -9,40 +9,60 @@ export function fetchArticles(order = "desc", sort_by = "created_at") {
     order: order,
     sort_by: sort_by,
   };
-  return apiClient.get("/articles", { params }).then((response) => {
-    const formattedArticles = response.data.articles.map((article) => {
-      const articleDate = new Date(article.created_at);
-      const formattedDate = articleDate.toLocaleString();
-      return { ...article, formattedDate };
+  return apiClient
+    .get("/articles", { params })
+    .then((response) => {
+      const formattedArticles = response.data.articles.map((article) => {
+        const articleDate = new Date(article.created_at);
+        const formattedDate = articleDate.toLocaleString();
+        return { ...article, formattedDate };
+      });
+      return formattedArticles;
+    })
+    .catch((error) => {
+      return Promise.reject(error);
     });
-    return formattedArticles;
-  });
 }
 
 export function fetchSingleArticle(article_id) {
-  return apiClient.get(`/articles/${article_id}`).then((response) => {
-    const article = response.data.article;
-    const articleDate = new Date(article.created_at);
-    const formattedDate = articleDate.toLocaleString();
-    return { ...article, formattedDate };
-  });
+  return apiClient
+    .get(`/articles/${article_id}`)
+    .then((response) => {
+      const article = response.data.article;
+      const articleDate = new Date(article.created_at);
+      const formattedDate = articleDate.toLocaleString();
+      return { ...article, formattedDate };
+    })
+    .catch((error) => {
+      return Promise.reject(error);
+    });
 }
 
 export function fetchArticleComments(article_id) {
-  return apiClient.get(`/articles/${article_id}/comments`).then((response) => {
-    const formattedComments = response.data.comments.map((comment) => {
-      const commentDate = new Date(comment.created_at);
-      const formattedDate = commentDate.toLocaleString();
-      return { ...comment, formattedDate };
+  return apiClient
+    .get(`/articles/${article_id}/comments`)
+    .then((response) => {
+      const formattedComments = response.data.comments.map((comment) => {
+        const commentDate = new Date(comment.created_at);
+        const formattedDate = commentDate.toLocaleString();
+        return { ...comment, formattedDate };
+      });
+      return formattedComments;
+    })
+    .catch((error) => {
+      return Promise.reject(error);
     });
-    return formattedComments;
-  });
 }
 
 export function fetchUsers() {
-  return apiClient.get("/users").then((response) => {
-    return response.data.users;
-  });
+  return apiClient
+    .get("/users")
+    .then((response) => {
+      return response.data.users;
+    })
+    .catch((error) => {
+      return Promise.reject(error);
+    });
 }
 
 export function updateArticleVotes(article_id, voteInc) {
@@ -90,17 +110,22 @@ export function fetchArticleByTopic(
     order: order,
     sort_by: sort_by,
   };
-  return apiClient.get(`/articles`, { params }).then((response) => {
-    const filteredArticles = response.data.articles.filter((article) => {
-      if (article.topic === topic) {
-        return article;
-      }
+  return apiClient
+    .get(`/articles`, { params })
+    .then((response) => {
+      const filteredArticles = response.data.articles.filter((article) => {
+        if (article.topic === topic) {
+          return article;
+        }
+      });
+      const formattedArticles = filteredArticles.map((article) => {
+        const articleDate = new Date(article.created_at);
+        const formattedDate = articleDate.toLocaleString();
+        return { ...article, formattedDate };
+      });
+      return formattedArticles;
+    })
+    .catch((error) => {
+      return Promise.reject(error);
     });
-    const formattedArticles = filteredArticles.map((article) => {
-      const articleDate = new Date(article.created_at);
-      const formattedDate = articleDate.toLocaleString();
-      return { ...article, formattedDate };
-    });
-    return formattedArticles;
-  });
 }

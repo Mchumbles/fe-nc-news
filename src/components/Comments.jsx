@@ -5,6 +5,7 @@ import Loading from "./Loading";
 import PostArticleComment from "./PostArticleComment";
 import { UserContext } from "../contexts/user";
 import DeleteArticleComment from "./DeleteArticleComment";
+import Error from "./Error";
 
 export default function Comments(props) {
   const { article_id } = props;
@@ -12,17 +13,31 @@ export default function Comments(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [currComments, setCurrComments] = useState([]);
   const { isLoggedIn, loggedInUser } = useContext(UserContext);
+  const [isError, setIsError] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
-    fetchArticleComments(article_id).then((comments) => {
-      setCurrComments(comments);
-      setIsLoading(false);
-    });
+    fetchArticleComments(article_id)
+      .then((comments) => {
+        setCurrComments(comments);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsError("An error occurred while fetching comments");
+        setIsLoading(false);
+      });
   }, [article_id]);
 
   if (isLoading) {
     return <Loading />;
+  }
+
+  if (isError) {
+    return <Error msg={isError} />;
+  }
+
+  if (currComments.length === 0) {
+    return <h2>No comments for this article yet!</h2>;
   }
 
   return (

@@ -5,6 +5,7 @@ import { fetchArticleByTopic } from "../../api";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ArticleQueries from "./ArticleQueries";
+import Error from "./Error";
 
 export default function ArticlesByTopic() {
   const { slug } = useParams();
@@ -12,17 +13,31 @@ export default function ArticlesByTopic() {
   const [isLoading, setIsLoading] = useState(true);
   const [sortBy, setSortBy] = useState("created_at");
   const [order, setOrder] = useState("desc");
+  const [isError, setIsError] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
-    fetchArticleByTopic(slug, order, sortBy).then((articles) => {
-      setCurrArticles(articles);
-      setIsLoading(false);
-    });
+    fetchArticleByTopic(slug, order, sortBy)
+      .then((articles) => {
+        setCurrArticles(articles);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsError("An error occurred while fetching articles");
+        setIsLoading(false);
+      });
   }, [slug, order, sortBy]);
 
   if (isLoading) {
     return <Loading />;
+  }
+
+  if (isError) {
+    return <Error msg={isError} />;
+  }
+
+  if (currArticles.length === 0) {
+    return <h2>No articles for this topic currently!</h2>;
   }
 
   return (

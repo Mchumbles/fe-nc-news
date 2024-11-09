@@ -10,7 +10,7 @@ import Users from "./components/Users";
 import Topics from "./components/Topics";
 import ArticlesByTopic from "./components/ArticlesByTopic";
 import "./App.css";
-
+import PageNotFound from "./components/PageNotFound";
 function App() {
   const [loggedInUser, setLoggedInUser] = useState({});
   const isLoggedIn = Object.keys(loggedInUser).length > 0;
@@ -26,6 +26,7 @@ function App() {
           <Route path="/users" element={<Users />} />
           <Route path="/topics" element={<Topics />} />
           <Route path="/topics/:slug" element={<ArticlesByTopic />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>
     </UserContext.Provider>
