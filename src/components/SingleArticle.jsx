@@ -5,6 +5,7 @@ import Comments from "./Comments";
 import Loading from "./Loading";
 import { UserContext } from "../contexts/user";
 import Error from "./Error";
+import { ThumbUpIcon, ThumbDownIcon } from "@heroicons/react/solid";
 
 export default function SingleArticle() {
   const [currArticle, setCurrArticle] = useState({});
@@ -66,6 +67,9 @@ export default function SingleArticle() {
       }
     } else {
       setLoginPrompt("Please log in to vote");
+      setTimeout(() => {
+        setLoginPrompt("");
+      }, 3000);
     }
   };
 
@@ -108,25 +112,50 @@ export default function SingleArticle() {
   }
 
   return (
-    <section className="single-article-grid">
-      <h2 className="single-article-header">{currArticle.title}</h2>
-      <p className="single-article-text">{currArticle.body}</p>
+    <section className="wrapper">
+      <h2 className=" pt-4 pb-2 text-3xl font-bold text-blue-800 border-b border-b-blue-800">
+        {currArticle.title}
+      </h2>
+      <p className="pb-6 pt-3 text-black text-lg leading-relaxed max-w-3xl flex justify-center items-center">
+        {currArticle.body}
+      </p>
       <img
         alt={`Image related to ${currArticle.topic}`}
-        className="single-article-img"
+        className="w-full rounded-lg object-cover"
         src={currArticle.article_img_url}
       />
-      <p className="singe-article-author">{`Article author: ${currArticle.author}`}</p>
-      <button onClick={handleUpVote} disabled={hasUpVoted}>
-        UpVote
-      </button>
-      <p>{`Votes: ${votes}`}</p>
-      <p>{loginPrompt}</p>
-      <p>{voteError}</p>
-      <button onClick={handleDownVote} disabled={hasDownVoted}>
-        DownVote
-      </button>
-      <button onClick={toggleComments} className="toggle-comments-btn">
+      <p className=" pt-3 text-lg text-black">{`Article author: ${currArticle.author}`}</p>
+      <p className="text-red-600 text-sm">{voteError}</p>
+      <p className="text-blue-600 text-sm">{loginPrompt}</p>
+      <div className="flex items-center justify-center">
+        <button
+          onClick={handleUpVote}
+          disabled={hasUpVoted}
+          className={`px-4 py-2 text-white font-semibold rounded-lg ${
+            hasUpVoted
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-green-600 hover:bg-green-700"
+          }`}
+        >
+          <ThumbUpIcon className="w-6 h-6" />
+        </button>
+        <p className="text-lg font-medium p-4">{`Votes: ${votes}`}</p>
+        <button
+          onClick={handleDownVote}
+          disabled={hasDownVoted}
+          className={`px-4 py-2 text-white font-semibold rounded-lg ${
+            hasDownVoted
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-red-600 hover:bg-red-700"
+          }`}
+        >
+          <ThumbDownIcon className="w-6 h-6" />
+        </button>
+      </div>
+      <button
+        onClick={toggleComments}
+        className="px-4 py-2 mb-5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg flex justify-center items-center"
+      >
         {showComments ? "Hide Comments" : "Show Comments"}
       </button>
       {showComments && <Comments article_id={article_id} />}

@@ -1,4 +1,4 @@
-#root {
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -39,11 +39,11 @@
 
 .read-the-docs {
   color: #888;
-}
+} */
 
 /************ Header ************/
 
-#header {
+/* #header {
   background-color: brown;
 }
 
@@ -51,28 +51,28 @@
   width: 20%;
   border-radius: 8px;
   padding: 10px;
-}
+} */
 
 /************ NavBar ************/
 
-.nav-link {
+/* .nav-link {
   padding: 10px;
 }
 
 .nav-bar {
   background-color: brown;
-}
+} */
 
 /************ Articles ************/
 
-.article-list {
+/* .article-list {
   list-style: none;
 }
 
 .article-card {
   border-top: 2px white solid;
   border-bottom: 2px white solid;
-}
+} */
 
 /************ SingleArticle ************/
 
@@ -80,7 +80,7 @@
 
 } */
 
-.single-article-header {
+/* .single-article-header {
   color: white;
   border-top: 2px white solid;
   padding-top: 13px;
@@ -95,11 +95,11 @@
 
 .single-article-img {
   max-width: 50%;
-}
+} */
 
 /************ Comments ************/
 
-.comment-list {
+/* .comment-list {
   list-style: none;
 }
 
@@ -110,11 +110,11 @@
 .comment-card-delete {
   border: 2px red solid;
   color: red;
-}
+} */
 
 /************ Users ************/
 
-.users-list {
+/* .users-list {
   list-style: none;
 }
 
@@ -130,17 +130,17 @@
 
 .users-header {
   padding-bottom: 20px;
-}
+} */
 
 /************ Topics ************/
 
-.topics-card {
+/* .topics-card {
   border: 2px white solid;
-}
+} */
 
 /************ ArticleQueries ************/
 
-.filter-desc-asc {
+/* .filter-desc-asc {
   padding: 5px;
 }
 
@@ -150,5 +150,11 @@
 
 .filter-input {
   margin-right: 20px;
-}
+} */
 /* Testing */
+
+.wrapper {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 0 20px;
+}

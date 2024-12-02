@@ -45,18 +45,30 @@ export default function DeleteArticleComment(props) {
 
   return (
     <>
-      <p>{deleteMsg}</p>
-      <p>{completeDelMsg}</p>
+      <p className="text-gray-700">{deleteMsg}</p>
+      <p className="text-green-500">{completeDelMsg}</p>
       {!confirmDelete ? (
-        <button onClick={handleClick} disabled={btnDisable}>
+        <button
+          onClick={handleClick}
+          disabled={btnDisable}
+          className="w-44 py-2 px-4 bg-red-500 text-white rounded-lg disabled:bg-gray-400 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
+        >
           Delete comment
         </button>
       ) : (
         <>
-          <button onClick={handleClick} disabled={btnDisable}>
+          <button
+            onClick={handleClick}
+            disabled={btnDisable}
+            className="w-44 py-2 px-4 bg-red-500 text-white rounded-lg disabled:bg-gray-400 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 mb-2"
+          >
             Confirm Delete
           </button>
-          <button onClick={handleCancel} disabled={btnDisable}>
+          <button
+            onClick={handleCancel}
+            disabled={btnDisable}
+            className="w-44 py-2 px-4 bg-gray-300 text-black rounded-lg disabled:bg-gray-400 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
+          >
             Cancel
           </button>
         </>

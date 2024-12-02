@@ -1,19 +1,29 @@
-import { useContext } from "react";
 import { UserContext } from "../contexts/user";
+import defaultAvatarUrl from "/images/default-avatar.png";
+import { useContext } from "react";
 
 export default function Header() {
   const { isLoggedIn, loggedInUser } = useContext(UserContext);
+
   return (
-    <header id="header">
-      <h1>NC NEWS</h1>
-      <h2>Welcome {isLoggedIn ? loggedInUser.username : "guest"}</h2>
-      {isLoggedIn ? (
+    <header className="flex items-center justify-between bg-blue-800 px-4 py-2">
+      <h1 className="text-4xl text-white ml-10 mt-6 border-b border-white">
+        NC NEWS
+      </h1>
+      <div className="flex flex-col items-end ml-auto mt-6">
+        <h3 className="text-white mb-2">
+          Welcome {isLoggedIn ? loggedInUser.username : "guest"}
+        </h3>
         <img
-          className="avatar-img"
-          src={loggedInUser.avatar_url}
-          alt={`Avatar of ${loggedInUser.username}`}
+          className="w-24 h-24 rounded-full"
+          src={
+            isLoggedIn && loggedInUser?.avatar_url
+              ? loggedInUser.avatar_url
+              : defaultAvatarUrl
+          }
+          alt={`Avatar of ${isLoggedIn ? loggedInUser.username : "guest"}`}
         />
-      ) : null}
+      </div>
     </header>
   );
 }

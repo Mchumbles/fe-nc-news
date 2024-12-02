@@ -41,34 +41,44 @@ export default function Comments(props) {
   }
 
   return (
-    <section>
+    <section className="wrapper">
       {isLoggedIn ? (
         <PostArticleComment
           article_id={article_id}
           setCurrComments={setCurrComments}
         />
       ) : (
-        <p>Want to make a comment? Make sure you're signed in!</p>
+        <p className="text-center text-sm text-blue-800">
+          Want to make a comment? Make sure you're signed in!
+        </p>
       )}
-      <ul className="comment-list">
+      <ul className="space-y-4">
         {currComments.map((comment) => {
           if (comment.deleted) {
             return (
-              <Card className="comment-card-delete" key={comment.comment_id}>
-                <Card.Header>
-                  <Card.Title>{"Comment successfully deleted"}</Card.Title>
-                </Card.Header>
-              </Card>
+              <div
+                className="p-4 bg-red-100 text-red-700 rounded-lg"
+                key={comment.comment_id}
+              >
+                <h3 className="text-center">Comment successfully deleted</h3>
+              </div>
             );
           } else {
             return (
-              <Card className="comment-card" key={comment.comment_id}>
-                <Card.Header>
-                  <Card.Title>{`Comment author: ${comment.author}`}</Card.Title>
-                </Card.Header>
-                <Card.Text>{comment.body}</Card.Text>
-                <Card.Text>{`Votes: ${comment.votes}`}</Card.Text>
-                <Card.Text>{`Date commented: ${comment.formattedDate}`}</Card.Text>
+              <div
+                className="p-6 bg-white border border-gray-200 rounded-lg shadow-sm w-auto flex flex-col justify-center items-center text-center"
+                key={comment.comment_id}
+              >
+                <div>
+                  <h3 className="text-black pb-3">{`Comment author: ${comment.author}`}</h3>
+                </div>
+                <div className="flex flex-col justify-between w-full">
+                  <p className="text-black mb-2 mx-20 pt-8 pb-8 border-b border-t border-black min-h-[100px]">
+                    {comment.body}
+                  </p>
+                </div>
+                <p className="text-sm text-black pt-3">{`Votes: ${comment.votes}`}</p>
+                <p className="text-sm text-black">{`Date commented: ${comment.formattedDate}`}</p>
                 {isLoggedIn && loggedInUser.username === comment.author ? (
                   <DeleteArticleComment
                     comment_id={comment.comment_id}
@@ -76,7 +86,7 @@ export default function Comments(props) {
                     currComments={currComments}
                   />
                 ) : null}
-              </Card>
+              </div>
             );
           }
         })}
