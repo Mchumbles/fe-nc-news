@@ -49,20 +49,32 @@ export default function PostArticleComment(props) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <p>What would you like to comment?</p>
-      <input
-        value={newCommentValue}
-        onChange={(e) => setNewCommentValue(e.target.value)}
-        placeholder="Enter your comment here"
-        required="required"
-      />
-      <button type="submit" disabled={!isLoggedIn || btnDisable}>
-        Submit comment!
-      </button>
-      <p>{postCommentError}</p>
-      <p>{postingMessage}</p>
-      <p>{postSuccessful}</p>
-    </form>
+    <section className="wrapper">
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-4 flex flex-col justify-center items-center"
+      >
+        <p className="text-lg text-black">
+          What would you like to comment, {loggedInUser.username}?
+        </p>
+        <input
+          value={newCommentValue}
+          onChange={(e) => setNewCommentValue(e.target.value)}
+          placeholder="Enter your comment here"
+          required
+          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        />
+        <button
+          type="submit"
+          disabled={!isLoggedIn || btnDisable}
+          className="w-64 p-3 bg-blue-500 text-white rounded-lg disabled:bg-gray-400 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 "
+        >
+          Submit comment!
+        </button>
+        <p className="text-red-500">{postCommentError}</p>
+        <p className="text-green-500">{postingMessage}</p>
+        <p className="text-green-500">{postSuccessful}</p>
+      </form>
+    </section>
   );
 }

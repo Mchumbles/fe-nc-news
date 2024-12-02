@@ -1,12 +1,14 @@
 import Spinner from "react-bootstrap/Spinner";
-// import "bootstrap/dist/css/bootstrap.min.css";
-// Look into css clash later. Spinner works with above import, but messes up rest of styling
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Loading() {
   return (
-    <p>Loading...</p>
-    // <Spinner animation="border" role="status">
-    //   <span className="visually-hidden">Loading...</span>
-    // </Spinner>
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="text-center">
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </div>
+    </div>
   );
 }

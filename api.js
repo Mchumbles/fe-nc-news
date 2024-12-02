@@ -94,7 +94,16 @@ export function fetchTopics() {
   return apiClient
     .get("/topics")
     .then((response) => {
-      return response.data.topics;
+      const topics = response.data.topics;
+      return Promise.all(
+        topics.map((topic) =>
+          apiClient.get(`/articles?topic=${topic.slug}`).then((response) => {
+            const article = response.data.articles[0];
+            topic.topic_img = article.article_img_url;
+            return topic;
+          })
+        )
+      );
     })
     .catch((error) => {
       return Promise.reject(error);

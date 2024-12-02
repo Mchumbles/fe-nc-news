@@ -31,10 +31,15 @@ export default function Users() {
   }
 
   return (
-    <ul className="users-list">
-      {currUsers.map((user) => {
-        return <UserCard user={user} key={user.username} />;
-      })}
-    </ul>
+    <section className="wrapper">
+      <h2 className="text-2xl font-bold text-center pt-4 pb-4 mb-6 text-blue-800 border-b border-b-blue-800">
+        Current Users
+      </h2>
+      <ul className="flex flex-col items-center justify-center">
+        {currUsers.map((user) => {
+          return <UserCard user={user} key={user.username} />;
+        })}
+      </ul>
+    </section>
   );
 }

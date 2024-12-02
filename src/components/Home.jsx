@@ -1,3 +1,7 @@
 export default function Home() {
-  return <h2>Welcome to NC News!</h2>;
+  return (
+    <section>
+      <h2 className="flex items-center justify-center">Welcome to NC News!</h2>
+    </section>
+  );
 }
