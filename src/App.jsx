@@ -11,6 +11,7 @@ import Topics from "./components/Topics";
 import ArticlesByTopic from "./components/ArticlesByTopic";
 import "./App.css";
 import PageNotFound from "./components/PageNotFound";
+import Footer from "./components/Footer";
 
 function App() {
   const { loggedInUser } = useContext(UserContext);
@@ -29,6 +30,7 @@ function App() {
         <Route path="/topics/:slug" element={<ArticlesByTopic />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
+      <Footer />
     </div>
   );
 }

@@ -34,7 +34,9 @@ export default function PostArticleComment(props) {
         setPostSuccessful("Post Successful!");
       })
       .catch((error) => {
-        setPostCommentError("Your like was not successful. Please try again!");
+        setPostCommentError(
+          "Your comment was not successful. Please try again!"
+        );
         setPostingMessage("");
         setPostSuccessful("");
         setCurrComments((currComments) => currComments.slice(1));
@@ -45,37 +47,62 @@ export default function PostArticleComment(props) {
     setBtnDisable(postingMessage.length > 0);
   }, [postingMessage]);
 
+  useEffect(() => {
+    if (!postingMessage && newCommentValue === "") {
+      document.getElementById("comment-input").focus();
+    }
+  }, [postingMessage, newCommentValue]);
+
   if (isLoading) {
     return <Loading />;
   }
 
   return (
-    <section className="wrapper">
+    <section className="wrapper" aria-labelledby="comment-form">
+      <h2 id="comment-form" className="sr-only">
+        Post a comment
+      </h2>
+
       <form
         onSubmit={handleSubmit}
         className="space-y-4 flex flex-col justify-center items-center"
+        aria-live="polite"
       >
         <p className="text-lg text-black">
           What would you like to comment, {loggedInUser.username}?
         </p>
+
+        <label htmlFor="comment-input" className="sr-only">
+          Enter your comment
+        </label>
         <input
+          id="comment-input"
           value={newCommentValue}
           onChange={(e) => setNewCommentValue(e.target.value)}
           placeholder="Enter your comment here"
           required
           className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         />
+
         <button
           type="submit"
           disabled={!isLoggedIn || btnDisable}
-          className="w-64 p-3 bg-blue-500 text-white rounded-lg disabled:bg-gray-400 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 "
+          className="w-64 p-3 bg-blue-500 text-white rounded-lg disabled:bg-gray-400 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          aria-label="Submit your comment"
         >
           Submit comment!
         </button>
+
         <div className="text-lg">
-          <p className="text-red-500">{postCommentError}</p>
-          <p className="text-green-500">{postingMessage}</p>
-          <p className="text-green-500">{postSuccessful}</p>
+          <p role="alert" className="text-red-500">
+            {postCommentError}
+          </p>
+          <p role="status" className="text-green-500">
+            {postingMessage}
+          </p>
+          <p role="status" className="text-green-500">
+            {postSuccessful}
+          </p>
         </div>
       </form>
     </section>
