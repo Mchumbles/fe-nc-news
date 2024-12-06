@@ -56,7 +56,10 @@ export default function Articles() {
             <div className="relative bg-white rounded-lg shadow-md p-6 flex items-start justify-between w-[36rem]">
               <div className="flex-1 pr-4">
                 <div className="border-b border-blue-800 pb-4 mb-4">
-                  <Link to={`/articles/${article.article_id}`}>
+                  <Link
+                    className=" hover:underline no-underline"
+                    to={`/articles/${article.article_id}`}
+                  >
                     <h2 className="text-2xl font-semibold text-gray-800">
                       {article.title}
                     </h2>
@@ -64,7 +67,7 @@ export default function Articles() {
                 </div>
                 <Link
                   to={`/topics/${article.topic}`}
-                  className="text-blue-500 hover:underline"
+                  className="text-blue-500 hover:underline no-underline"
                 >
                   <p className="text-sm text-black">{`Topic: ${article.topic}`}</p>
                 </Link>

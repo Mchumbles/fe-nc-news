@@ -5,13 +5,14 @@ import Loading from "./Loading";
 
 export default function PostArticleComment(props) {
   const { article_id, setCurrComments } = props;
-  const { isLoggedIn, loggedInUser } = useContext(UserContext);
+  const { loggedInUser } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
   const [postCommentError, setPostCommentError] = useState("");
   const [newCommentValue, setNewCommentValue] = useState("");
   const [postingMessage, setPostingMessage] = useState("");
   const [postSuccessful, setPostSuccessful] = useState("");
   const [btnDisable, setBtnDisable] = useState(false);
+  const isLoggedIn = !!loggedInUser;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -71,9 +72,11 @@ export default function PostArticleComment(props) {
         >
           Submit comment!
         </button>
-        <p className="text-red-500">{postCommentError}</p>
-        <p className="text-green-500">{postingMessage}</p>
-        <p className="text-green-500">{postSuccessful}</p>
+        <div className="text-lg">
+          <p className="text-red-500">{postCommentError}</p>
+          <p className="text-green-500">{postingMessage}</p>
+          <p className="text-green-500">{postSuccessful}</p>
+        </div>
       </form>
     </section>
   );

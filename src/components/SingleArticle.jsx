@@ -17,8 +17,9 @@ export default function SingleArticle() {
   const [voteError, setVoteError] = useState("");
   const [loginPrompt, setLoginPrompt] = useState("");
   const { article_id } = useParams();
-  const { isLoggedIn } = useContext(UserContext);
+  const { loggedInUser } = useContext(UserContext);
   const [isError, setIsError] = useState(null);
+  const isLoggedIn = !!loggedInUser;
 
   useEffect(() => {
     setIsLoading(true);
