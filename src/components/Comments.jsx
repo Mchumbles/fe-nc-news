@@ -12,8 +12,9 @@ export default function Comments(props) {
 
   const [isLoading, setIsLoading] = useState(true);
   const [currComments, setCurrComments] = useState([]);
-  const { isLoggedIn, loggedInUser } = useContext(UserContext);
+  const { loggedInUser } = useContext(UserContext);
   const [isError, setIsError] = useState(null);
+  const isLoggedIn = !!loggedInUser;
 
   useEffect(() => {
     setIsLoading(true);

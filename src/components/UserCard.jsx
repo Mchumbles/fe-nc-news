@@ -1,18 +1,14 @@
 import { useContext, useState } from "react";
-import { Card } from "react-bootstrap";
 import { UserContext } from "../contexts/user";
 
-export default function UserCard(props) {
-  const { user } = props;
-
-  const [currLoggedIn, setCurrLogedIn] = useState(false);
-
-  const { setLoggedInUser } = useContext(UserContext);
+export default function UserCard({ user }) {
+  const { loggedInUser, setLoggedInUser } = useContext(UserContext);
 
   const handleClick = () => {
     setLoggedInUser(user);
-    setCurrLogedIn(true);
   };
+
+  const isLoggedIn = loggedInUser?.username === user.username;
 
   return (
     <div
@@ -29,14 +25,14 @@ export default function UserCard(props) {
       />
       <button
         onClick={handleClick}
-        disabled={currLoggedIn}
+        disabled={isLoggedIn}
         className={`w-full py-2 px-4 rounded-lg text-white ${
-          currLoggedIn
+          isLoggedIn
             ? "bg-gray-400 cursor-not-allowed"
             : "bg-blue-500 hover:bg-blue-800"
         }`}
       >
-        Log in
+        {isLoggedIn ? "Logged In" : "Log In"}
       </button>
     </div>
   );
