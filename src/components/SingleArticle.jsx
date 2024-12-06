@@ -113,21 +113,34 @@ export default function SingleArticle() {
   }
 
   return (
-    <section className="wrapper">
-      <h2 className=" pt-4 pb-2 text-3xl font-bold text-blue-800 border-b border-b-blue-800">
-        {currArticle.title}
-      </h2>
-      <p className="pb-6 pt-3 text-black text-lg leading-relaxed max-w-3xl flex justify-center items-center">
-        {currArticle.body}
-      </p>
-      <img
-        alt={`Image related to ${currArticle.topic}`}
-        className="w-full rounded-lg object-cover"
-        src={currArticle.article_img_url}
-      />
-      <p className=" pt-3 text-lg text-black">{`Article author: ${currArticle.author}`}</p>
-      <p className="text-red-600 text-sm">{voteError}</p>
-      <p className="text-blue-600 text-sm">{loginPrompt}</p>
+    <article className="wrapper" aria-labelledby="article-title">
+      <header>
+        <h1
+          id="article-title"
+          className="pt-4 pb-2 text-3xl font-bold text-blue-800 border-b border-b-blue-800"
+        >
+          {currArticle.title}
+        </h1>
+      </header>
+
+      <section className="pb-6 pt-3 text-black text-lg leading-relaxed max-w-3xl flex justify-center items-center">
+        <p>{currArticle.body}</p>
+      </section>
+
+      <figure className="w-full">
+        <img
+          alt={`Image related to ${currArticle.topic}`}
+          className="w-full rounded-lg object-cover"
+          src={currArticle.article_img_url}
+        />
+        <figcaption className="pt-3 text-lg text-black">{`Article author: ${currArticle.author}`}</figcaption>
+      </figure>
+
+      <section aria-live="polite">
+        <p className="text-red-600 text-sm">{voteError}</p>
+        <p className="text-blue-600 text-sm">{loginPrompt}</p>
+      </section>
+
       <div className="flex items-center justify-center">
         <button
           onClick={handleUpVote}
@@ -137,10 +150,13 @@ export default function SingleArticle() {
               ? "bg-gray-400 cursor-not-allowed"
               : "bg-green-600 hover:bg-green-700"
           }`}
+          aria-label="Upvote this article"
         >
           <ThumbUpIcon className="w-6 h-6" />
         </button>
+
         <p className="text-lg font-medium p-4">{`Votes: ${votes}`}</p>
+
         <button
           onClick={handleDownVote}
           disabled={hasDownVoted}
@@ -149,17 +165,22 @@ export default function SingleArticle() {
               ? "bg-gray-400 cursor-not-allowed"
               : "bg-red-600 hover:bg-red-700"
           }`}
+          aria-label="Downvote this article"
         >
           <ThumbDownIcon className="w-6 h-6" />
         </button>
       </div>
+
       <button
         onClick={toggleComments}
         className="px-4 py-2 mb-5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg flex justify-center items-center"
+        aria-expanded={showComments}
+        aria-controls="comments-section"
       >
         {showComments ? "Hide Comments" : "Show Comments"}
       </button>
+
       {showComments && <Comments article_id={article_id} />}
-    </section>
+    </article>
   );
 }

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Loading from "./Loading";
 import { fetchTopics } from "../../api";
 import { Link } from "react-router-dom";
-import { Card } from "react-bootstrap";
 import Error from "./Error";
 
 export default function Topics() {
@@ -36,32 +35,45 @@ export default function Topics() {
   }
 
   return (
-    <section className="wrapper">
-      <h2 className="text-2xl font-bold text-center pt-3 pb-3 mb-6 text-blue-800 border-b border-b-blue-800">
-        Current Article Topics
-      </h2>
-      <ul className="flex flex-col justify-center items-center">
+    <section className="wrapper" aria-labelledby="topics-section">
+      <header className="text-2xl font-bold text-center pt-3 pb-3 mb-6 text-blue-800 border-b border-b-blue-800">
+        <h2 id="topics-section">Current Article Topics</h2>
+      </header>
+
+      <ul className="flex flex-wrap justify-center items-center" role="list">
         {currTopics.map((topic) => {
           return (
-            <Link to={`/topics/${topic.slug}`} key={topic.slug}>
-              <div className=" m-10 relative bg-cover bg-center w-96 h-48 rounded-lg shadow-lg transition-transform transform hover:scale-105 overflow-hidden">
+            <li key={topic.slug} role="listitem" className="m-10">
+              <Link
+                to={`/topics/${topic.slug}`}
+                aria-label={`View articles in ${
+                  topic.slug.charAt(0).toUpperCase() + topic.slug.slice(1)
+                } topic`}
+              >
                 <div
-                  className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center p-10"
+                  className="relative bg-cover bg-center w-[24rem] h-[16rem] rounded-lg shadow-lg transition-transform transform hover:scale-110 overflow-hidden"
                   style={{
                     backgroundImage: `url(${topic.topic_img})`,
                   }}
+                  role="presentation"
                 >
-                  <div className="bg-gray-800 bg-opacity-90 p-6 rounded-lg w-56 h-32">
-                    <h3 className="text-xl font-bold text-white">
-                      {topic.slug.charAt(0).toUpperCase() + topic.slug.slice(1)}{" "}
-                    </h3>
-                    <p className="text-sm text-gray-300 mt-2">
-                      {topic.description}
-                    </p>
+                  <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center p-10">
+                    <div className="bg-gray-800 bg-opacity-90 p-6 rounded-lg w-64 h-40">
+                      <h3
+                        className="text-2xl font-bold text-white"
+                        aria-live="polite"
+                      >
+                        {topic.slug.charAt(0).toUpperCase() +
+                          topic.slug.slice(1)}{" "}
+                      </h3>
+                      <p className="text-md text-gray-300 mt-2">
+                        {topic.description}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </li>
           );
         })}
       </ul>

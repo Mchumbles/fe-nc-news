@@ -31,14 +31,16 @@ export default function Users() {
   }
 
   return (
-    <section className="wrapper">
+    <section className="wrapper" aria-live="polite">
       <h2 className="text-2xl font-bold text-center pt-4 pb-4 mb-6 text-blue-800 border-b border-b-blue-800">
         Current Users
       </h2>
-      <ul className="flex flex-col items-center justify-center">
-        {currUsers.map((user) => {
-          return <UserCard user={user} key={user.username} />;
-        })}
+      <ul className="flex flex-col items-center justify-center" role="list">
+        {currUsers.map((user) => (
+          <li key={user.username} role="listitem">
+            <UserCard user={user} />
+          </li>
+        ))}
       </ul>
     </section>
   );

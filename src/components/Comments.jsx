@@ -1,6 +1,5 @@
 import { useEffect, useState, useContext } from "react";
 import { fetchArticleComments } from "../../api";
-import { Card } from "react-bootstrap";
 import Loading from "./Loading";
 import PostArticleComment from "./PostArticleComment";
 import { UserContext } from "../contexts/user";
@@ -24,7 +23,7 @@ export default function Comments(props) {
         setIsLoading(false);
       })
       .catch((error) => {
-        setIsError("An error occurred while fetching comments");
+        setIsError("An error occurred while fetching comments.");
         setIsLoading(false);
       });
   }, [article_id]);
@@ -38,7 +37,11 @@ export default function Comments(props) {
   }
 
   if (currComments.length === 0) {
-    return <h2>No comments for this article yet!</h2>;
+    return (
+      <h2 className="text-center text-lg text-gray-700">
+        No comments for this article yet!
+      </h2>
+    );
   }
 
   return (
@@ -53,43 +56,50 @@ export default function Comments(props) {
           Want to make a comment? Make sure you're signed in!
         </p>
       )}
+
       <ul className="space-y-4">
         {currComments.map((comment) => {
-          if (comment.deleted) {
-            return (
-              <div
-                className="p-4 bg-red-100 text-red-700 rounded-lg"
-                key={comment.comment_id}
-              >
-                <h3 className="text-center">Comment successfully deleted</h3>
-              </div>
-            );
-          } else {
-            return (
-              <div
-                className="p-6 bg-white border border-gray-200 rounded-lg shadow-sm w-auto flex flex-col justify-center items-center text-center"
-                key={comment.comment_id}
-              >
-                <div>
-                  <h3 className="text-black pb-3">{`Comment author: ${comment.author}`}</h3>
+          return (
+            <li key={comment.comment_id}>
+              {comment.deleted ? (
+                <div
+                  className="p-4 bg-red-100 text-red-700 rounded-lg"
+                  role="alert"
+                  aria-live="assertive"
+                >
+                  <h3 className="text-center">Comment successfully deleted</h3>
                 </div>
-                <div className="flex flex-col justify-between w-full">
-                  <p className="text-black mb-2 mx-20 pt-8 pb-8 border-b border-t border-black min-h-[100px]">
-                    {comment.body}
-                  </p>
+              ) : (
+                <div
+                  className="p-6 bg-white border border-gray-200 rounded-lg shadow-sm w-auto flex flex-col justify-center items-center text-center"
+                  aria-labelledby={`comment-${comment.comment_id}`}
+                >
+                  <div>
+                    <h3
+                      id={`comment-${comment.comment_id}`}
+                      className="text-black pb-3"
+                    >
+                      {`Comment author: ${comment.author}`}
+                    </h3>
+                  </div>
+                  <div className="flex flex-col justify-between w-full">
+                    <p className="text-black mb-2 mx-20 pt-8 pb-8 border-b border-t border-black min-h-[100px]">
+                      {comment.body}
+                    </p>
+                  </div>
+                  <p className="text-sm text-black pt-3">{`Votes: ${comment.votes}`}</p>
+                  <p className="text-sm text-black">{`Date commented: ${comment.formattedDate}`}</p>
+                  {isLoggedIn && loggedInUser.username === comment.author ? (
+                    <DeleteArticleComment
+                      comment_id={comment.comment_id}
+                      setCurrComments={setCurrComments}
+                      currComments={currComments}
+                    />
+                  ) : null}
                 </div>
-                <p className="text-sm text-black pt-3">{`Votes: ${comment.votes}`}</p>
-                <p className="text-sm text-black">{`Date commented: ${comment.formattedDate}`}</p>
-                {isLoggedIn && loggedInUser.username === comment.author ? (
-                  <DeleteArticleComment
-                    comment_id={comment.comment_id}
-                    setCurrComments={setCurrComments}
-                    currComments={currComments}
-                  />
-                ) : null}
-              </div>
-            );
-          }
+              )}
+            </li>
+          );
         })}
       </ul>
     </section>

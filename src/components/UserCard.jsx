@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { UserContext } from "../contexts/user";
 
 export default function UserCard({ user }) {
@@ -11,18 +11,28 @@ export default function UserCard({ user }) {
   const isLoggedIn = loggedInUser?.username === user.username;
 
   return (
-    <div
+    <article
       className="bg-white rounded-lg shadow-lg p-6 w-96 m-10"
       key={user.username}
+      aria-labelledby={`user-card-${user.username}`}
     >
       <div className="border-b border-gray-200 pb-4 mb-4">
-        <h3 className="text-xl font-semibold text-gray-800">{`Username: ${user.username}`}</h3>
+        <h3
+          id={`user-card-${user.username}`}
+          className="text-xl font-semibold text-gray-800"
+        >
+          {`Username: ${user.username}`}
+        </h3>
       </div>
       <img
         className="w-24 h-24 rounded-full mx-auto mb-4"
         src={user.avatar_url}
         alt={`Avatar of ${user.username}`}
+        aria-describedby={`user-card-${user.username}-avatar`}
       />
+      <p id={`user-card-${user.username}-avatar`} className="sr-only">
+        {`Avatar of ${user.username}`}
+      </p>
       <button
         onClick={handleClick}
         disabled={isLoggedIn}
@@ -31,9 +41,14 @@ export default function UserCard({ user }) {
             ? "bg-gray-400 cursor-not-allowed"
             : "bg-blue-500 hover:bg-blue-800"
         }`}
+        aria-label={
+          isLoggedIn
+            ? `Logged in as ${user.username}`
+            : `Log in as ${user.username}`
+        }
       >
         {isLoggedIn ? "Logged In" : "Log In"}
       </button>
-    </div>
+    </article>
   );
 }

@@ -1,8 +1,15 @@
 export default function PageNotFound() {
   return (
-    <div>
-      <h1>Error</h1>
-      <p>404 Page not found</p>
-    </div>
+    <main role="main" aria-labelledby="error-heading">
+      <h1
+        id="error-heading"
+        className="text-3xl font-bold text-center text-red-600"
+      >
+        Error
+      </h1>
+      <p role="alert" className="text-xl text-center text-gray-800">
+        404 - Page Not Found
+      </p>
+    </main>
   );
 }
