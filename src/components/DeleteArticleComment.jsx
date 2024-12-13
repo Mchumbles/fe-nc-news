@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import { deleteArticleComment } from "../../api";
 
 export default function DeleteArticleComment(props) {
-  const { comment_id, setCurrComments, currComments } = props;
+  const { comment_id, optamistic_id, setCurrComments, currComments } = props;
   const { isLoggedIn, loggedInUser } = useContext(UserContext);
   const [deleteMsg, setDeleteMsg] = useState("");
   const [completeDelMsg, setCompleteDelMsg] = useState("");

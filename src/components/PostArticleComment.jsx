@@ -18,20 +18,38 @@ export default function PostArticleComment(props) {
     event.preventDefault();
     setPostingMessage("Posting comment...");
     setPostSuccessful("");
+    setPostCommentError("");
 
-    const optimisticComment = {
+    let optimisticComment = {
       comment_id: Date.now(),
+      optimistic_id: null,
       author: loggedInUser.username,
       body: newCommentValue,
       votes: 0,
       formattedDate: new Date().toLocaleString(),
     };
+
     setCurrComments((currComments) => [optimisticComment, ...currComments]);
+
     sendArticleComment(article_id, loggedInUser.username, newCommentValue)
-      .then(() => {
+      .then((response) => {
+        const updatedComment = {
+          ...optimisticComment,
+          comment_id: response.comment_id,
+        };
+        setCurrComments((currComments) => {
+          return currComments.map((comment) =>
+            comment.comment_id === optimisticComment.comment_id
+              ? { ...comment, comment_id: response.comment_id }
+              : comment
+          );
+        });
         setNewCommentValue("");
         setPostingMessage("");
         setPostSuccessful("Post Successful!");
+        setTimeout(() => {
+          setPostSuccessful("");
+        }, 3000);
       })
       .catch((error) => {
         setPostCommentError(

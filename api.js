@@ -79,6 +79,9 @@ export function sendArticleComment(article_id, user, comment) {
       username: user,
       body: comment,
     })
+    .then((response) => {
+      return response.data.newComment;
+    })
     .catch((error) => {
       return Promise.reject(error);
     });
