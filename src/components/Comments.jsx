@@ -92,6 +92,7 @@ export default function Comments(props) {
                   {isLoggedIn && loggedInUser.username === comment.author ? (
                     <DeleteArticleComment
                       comment_id={comment.comment_id}
+                      optamistic_id={comment.optamistic_id}
                       setCurrComments={setCurrComments}
                       currComments={currComments}
                     />
