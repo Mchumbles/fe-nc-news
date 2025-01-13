@@ -6,7 +6,7 @@ import Loading from "./Loading";
 export default function PostArticleComment(props) {
   const { article_id, setCurrComments } = props;
   const { loggedInUser } = useContext(UserContext);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
   const [postCommentError, setPostCommentError] = useState("");
   const [newCommentValue, setNewCommentValue] = useState("");
   const [postingMessage, setPostingMessage] = useState("");
