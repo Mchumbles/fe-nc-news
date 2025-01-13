@@ -1,10 +1,8 @@
-import { UserContext } from "../contexts/user";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { deleteArticleComment } from "../../api";
 
 export default function DeleteArticleComment(props) {
-  const { comment_id, optamistic_id, setCurrComments, currComments } = props;
-  const { isLoggedIn, loggedInUser } = useContext(UserContext);
+  const { comment_id, setCurrComments, currComments } = props;
   const [deleteMsg, setDeleteMsg] = useState("");
   const [completeDelMsg, setCompleteDelMsg] = useState("");
   const [btnDisable, setBtnDisable] = useState(false);
