@@ -25,15 +25,9 @@ export default function Articles() {
       });
   }, [order, sortBy]);
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (isError) {
-    return <Error msg={isError} />;
-  }
-
-  if (currArticles.length === 0) {
+  if (isLoading) return <Loading />;
+  if (isError) return <Error msg={isError} />;
+  if (currArticles.length === 0)
     return (
       <h2
         role="alert"
@@ -43,12 +37,11 @@ export default function Articles() {
         No Articles Found
       </h2>
     );
-  }
 
   return (
-    <section className="wrapper">
+    <section className="wrapper px-4 md:px-0">
       <header>
-        <h2 className="pb-3 pt-3 text-2xl font-bold text-center mb-6 text-blue-800 border-b border-b-blue-800">
+        <h2 className="pb-3 pt-3 text-2xl font-bold text-center mb-6 text-blue-800 border-b border-blue-800">
           All Articles
         </h2>
       </header>
@@ -60,14 +53,17 @@ export default function Articles() {
         sortBy={sortBy}
       />
 
-      <ul role="list" className="flex flex-col justify-center items-center">
+      <ul role="list" className="flex flex-col items-center">
         {currArticles.map((article) => (
-          <li className="pb-6" key={article.article_id}>
+          <li
+            className="pb-6 w-full flex justify-center"
+            key={article.article_id}
+          >
             <article
-              className="relative bg-white rounded-lg shadow-md p-6 flex items-start justify-between w-[36rem]"
+              className="relative bg-white rounded-lg shadow-md p-6 flex flex-col md:flex-row items-start justify-between w-full max-w-[36rem]"
               aria-labelledby={`article-${article.article_id}`}
             >
-              <div className="flex-1 pr-4">
+              <div className="flex-1 pr-0 md:pr-4">
                 <div className="border-b border-blue-800 pb-4 mb-4">
                   <Link
                     className="hover:underline no-underline"
@@ -99,10 +95,11 @@ export default function Articles() {
               <Link
                 to={`/articles/${article.article_id}`}
                 aria-label={`View article image: ${article.title}`}
+                className="mt-4 md:mt-0"
               >
                 <img
                   alt={`Image related to article titled ${article.title}`}
-                  className="absolute inset-auto right-12 bottom-6 m-auto w-36 h-36 object-cover rounded-lg ml-4"
+                  className="w-24 h-24 md:w-36 md:h-36 object-cover rounded-lg"
                   src={article.article_img_url}
                 />
               </Link>

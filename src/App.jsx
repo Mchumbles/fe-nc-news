@@ -21,15 +21,17 @@ function App() {
     <div className="app">
       <Header />
       <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/articles" element={<Articles />} />
-        <Route path="/articles/:article_id" element={<SingleArticle />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/topics" element={<Topics />} />
-        <Route path="/topics/:slug" element={<ArticlesByTopic />} />
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/articles" element={<Articles />} />
+          <Route path="/articles/:article_id" element={<SingleArticle />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/topics" element={<Topics />} />
+          <Route path="/topics/:slug" element={<ArticlesByTopic />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </main>
       <Footer />
     </div>
   );

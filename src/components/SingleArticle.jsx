@@ -51,7 +51,7 @@ export default function SingleArticle() {
         setVotes((currentCount) => currentCount + 2);
         setHasUpVoted(true);
         setHasDownVoted(false);
-        updateArticleVotes(currArticle.article_id, 2).catch((error) => {
+        updateArticleVotes(currArticle.article_id, 2).catch(() => {
           setVotes((currentCount) => currentCount - 2);
           setHasUpVoted(false);
           setHasDownVoted(true);
@@ -60,7 +60,7 @@ export default function SingleArticle() {
       } else {
         setVotes((currentCount) => currentCount + 1);
         setHasUpVoted(true);
-        updateArticleVotes(currArticle.article_id, 1).catch((error) => {
+        updateArticleVotes(currArticle.article_id, 1).catch(() => {
           setVotes((currentCount) => currentCount - 1);
           setHasUpVoted(false);
           setVoteError("Something went wrong");
@@ -68,9 +68,7 @@ export default function SingleArticle() {
       }
     } else {
       setLoginPrompt("Please log in to vote");
-      setTimeout(() => {
-        setLoginPrompt("");
-      }, 3000);
+      setTimeout(() => setLoginPrompt(""), 3000);
     }
   };
 
@@ -80,7 +78,7 @@ export default function SingleArticle() {
         setVotes((currentCount) => currentCount - 2);
         setHasDownVoted(true);
         setHasUpVoted(false);
-        updateArticleVotes(currArticle.article_id, -2).catch((error) => {
+        updateArticleVotes(currArticle.article_id, -2).catch(() => {
           setVotes((currentCount) => currentCount + 2);
           setHasDownVoted(false);
           setHasUpVoted(true);
@@ -89,7 +87,7 @@ export default function SingleArticle() {
       } else {
         setVotes((currentCount) => currentCount - 1);
         setHasDownVoted(true);
-        updateArticleVotes(currArticle.article_id, -1).catch((error) => {
+        updateArticleVotes(currArticle.article_id, -1).catch(() => {
           setVotes((currentCount) => currentCount + 1);
           setHasDownVoted(false);
           setVoteError("Something went wrong");
@@ -100,48 +98,43 @@ export default function SingleArticle() {
     }
   };
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (isError) {
-    return <Error msg={isError} />;
-  }
-
-  if (currArticle.length === 0) {
+  if (isLoading) return <Loading />;
+  if (isError) return <Error msg={isError} />;
+  if (currArticle.length === 0)
     return <h2>It doesn't look like this article exists!</h2>;
-  }
 
   return (
-    <article className="wrapper" aria-labelledby="article-title">
-      <header>
-        <h1
-          id="article-title"
-          className="pt-4 pb-2 text-3xl font-bold text-blue-800 border-b border-b-blue-800"
-        >
+    <article
+      className="wrapper w-full px-4 sm:px-6"
+      aria-labelledby="article-title"
+    >
+      <header className="text-center">
+        <h1 className="pt-4 pb-2 text-2xl sm:text-3xl font-bold text-blue-800 border-b border-blue-800">
           {currArticle.title}
         </h1>
       </header>
 
-      <section className="pb-6 pt-3 text-black text-lg leading-relaxed max-w-3xl flex justify-center items-center">
+      <section className="pb-6 pt-3 text-black text-lg leading-relaxed max-w-3xl w-full mx-auto text-justify">
         <p>{currArticle.body}</p>
       </section>
 
-      <figure className="w-full">
+      <figure className="w-full flex flex-col items-center">
         <img
           alt={`Image related to ${currArticle.topic}`}
-          className="w-full rounded-lg object-cover"
+          className="w-full max-w-4xl h-auto rounded-lg object-cover"
           src={currArticle.article_img_url}
         />
-        <figcaption className="pt-3 text-lg text-black">{`Article author: ${currArticle.author}`}</figcaption>
+        <figcaption className="pt-3 text-lg text-black text-center w-full">
+          {`Article author: ${currArticle.author}`}
+        </figcaption>
       </figure>
 
-      <section aria-live="polite">
+      <section className="text-center">
         <p className="text-red-600 text-sm">{voteError}</p>
         <p className="text-blue-600 text-sm">{loginPrompt}</p>
       </section>
 
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center gap-4 my-4">
         <button
           onClick={handleUpVote}
           disabled={hasUpVoted}
@@ -155,7 +148,7 @@ export default function SingleArticle() {
           <ThumbUpIcon className="w-6 h-6" />
         </button>
 
-        <p className="text-lg font-medium p-4">{`Votes: ${votes}`}</p>
+        <p className="text-lg font-medium">{`Votes: ${votes}`}</p>
 
         <button
           onClick={handleDownVote}
@@ -173,7 +166,7 @@ export default function SingleArticle() {
 
       <button
         onClick={toggleComments}
-        className="px-4 py-2 mb-5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg flex justify-center items-center"
+        className="px-4 py-2 mb-5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg flex justify-center items-center w-full max-w-xs mx-auto"
         aria-expanded={showComments}
         aria-controls="comments-section"
       >
