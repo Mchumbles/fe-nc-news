@@ -19,7 +19,7 @@ export default function Home() {
         setFeaturedArticles(featured);
         setIsLoading(false);
       })
-      .catch((error) => {
+      .catch(() => {
         setIsError("An error occurred while fetching articles");
         setIsLoading(false);
       });
@@ -39,18 +39,18 @@ export default function Home() {
         Home Page
       </h2>
 
-      <h3 className="text-xl mb-4 pb-3 flex items-center justify-center text-blue-800 border-b border-b-blue-800">
+      <h3 className="text-xl mb-4 pb-3 text-center text-blue-800 border-b border-b-blue-800">
         Featured Articles
       </h3>
 
       <ul className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {featuredArticles.map((article) => (
           <li
-            className="pb-6"
+            className="pb-6 flex justify-center"
             key={article.article_id}
             aria-labelledby={`article-${article.article_id}`}
           >
-            <div className="relative bg-white rounded-lg shadow-md p-4 flex flex-col items-stretch w-80 h-[28rem]">
+            <div className="relative bg-white rounded-lg shadow-md p-4 flex flex-col items-stretch w-full sm:w-80 h-auto sm:h-[28rem]">
               <div className="flex-grow">
                 <Link
                   className="hover:underline no-underline"
@@ -64,10 +64,7 @@ export default function Home() {
                     {article.title}
                   </h2>
                 </Link>
-                <p
-                  id={`article-topic-${article.article_id}`}
-                  className="text-sm text-black"
-                >{`Topic: ${article.topic}`}</p>
+                <p className="text-sm text-black">{`Topic: ${article.topic}`}</p>
                 <p className="text-sm text-black">{`Author: ${article.author}`}</p>
                 <p className="text-sm text-black">{`Votes: ${article.votes}`}</p>
                 <p className="text-sm text-black">{`Date Posted: ${article.formattedDate}`}</p>
@@ -79,7 +76,7 @@ export default function Home() {
               >
                 <img
                   alt={`Image for article: ${article.title}`}
-                  className="w-36 h-36 object-cover rounded-lg"
+                  className="w-32 h-32 sm:w-36 sm:h-36 object-cover rounded-lg"
                   src={article.article_img_url}
                 />
               </Link>

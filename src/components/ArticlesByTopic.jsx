@@ -21,21 +21,15 @@ export default function ArticlesByTopic() {
         setCurrArticles(articles);
         setIsLoading(false);
       })
-      .catch((error) => {
+      .catch(() => {
         setIsError("An error occurred while fetching articles.");
         setIsLoading(false);
       });
   }, [slug, order, sortBy]);
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (isError) {
-    return <Error msg={isError} />;
-  }
-
-  if (currArticles.length === 0) {
+  if (isLoading) return <Loading />;
+  if (isError) return <Error msg={isError} />;
+  if (currArticles.length === 0)
     return (
       <h2
         className="text-center text-xl font-semibold mt-4"
@@ -45,13 +39,12 @@ export default function ArticlesByTopic() {
         No articles for this topic currently!
       </h2>
     );
-  }
 
   return (
-    <section className="wrapper">
+    <section className="wrapper px-4 md:px-0">
       <header>
-        <h2 className="pb-3 pt-3 text-2xl font-bold text-center mb-6 text-blue-800 border-b border-b-blue-800">
-          Articles in <span>{slug}</span>
+        <h2 className="pb-3 pt-3 text-2xl font-bold text-center mb-6 text-blue-800 border-b border-blue-800">
+          Articles in <span className="capitalize">{slug}</span>
         </h2>
       </header>
 
@@ -62,14 +55,17 @@ export default function ArticlesByTopic() {
         sortBy={sortBy}
       />
 
-      <ul className="flex flex-col justify-center items-center">
+      <ul role="list" className="flex flex-col items-center">
         {currArticles.map((article) => (
-          <li className="pb-6" key={article.article_id}>
+          <li
+            className="pb-6 w-full flex justify-center"
+            key={article.article_id}
+          >
             <article
-              className="relative bg-white rounded-lg shadow-md p-6 flex items-start justify-between w-[36rem]"
+              className="relative bg-white rounded-lg shadow-md p-6 flex flex-col md:flex-row items-start justify-between w-full max-w-[36rem]"
               aria-labelledby={`article-${article.article_id}`}
             >
-              <div className="flex-1 pr-4">
+              <div className="flex-1 pr-0 md:pr-4">
                 <div className="border-b border-blue-800 pb-4 mb-4">
                   <Link
                     className="hover:underline no-underline"
@@ -86,12 +82,13 @@ export default function ArticlesByTopic() {
                 </div>
 
                 <Link
-                  className="hover:underline no-underline"
                   to={`/topics/${article.topic}`}
+                  className="text-blue-500 hover:underline no-underline"
                   aria-label={`View more articles about ${article.topic}`}
                 >
                   <p className="text-sm text-black">{`Topic: ${article.topic}`}</p>
                 </Link>
+
                 <p className="text-sm text-black">{`Author: ${article.author}`}</p>
                 <p className="text-sm text-black">{`Votes: ${article.votes}`}</p>
                 <p className="text-sm text-black">{`Date Posted: ${article.formattedDate}`}</p>
@@ -100,10 +97,11 @@ export default function ArticlesByTopic() {
               <Link
                 to={`/articles/${article.article_id}`}
                 aria-label={`View article image: ${article.title}`}
+                className="mt-4 md:mt-0"
               >
                 <img
                   alt={`Image related to article titled ${article.title}`}
-                  className="absolute inset-auto right-12 bottom-6 m-auto w-36 h-36 object-cover rounded-lg ml-4"
+                  className="w-24 h-24 md:w-36 md:h-36 object-cover rounded-lg"
                   src={article.article_img_url}
                 />
               </Link>

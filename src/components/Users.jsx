@@ -16,28 +16,24 @@ export default function Users() {
         setCurrUsers(users);
         setIsLoading(false);
       })
-      .catch((error) => {
+      .catch(() => {
         setIsError("An error occurred while fetching users");
         setIsLoading(false);
       });
   }, []);
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (isError) {
-    return <Error msg={isError} />;
-  }
+  if (isLoading) return <Loading />;
+  if (isError) return <Error msg={isError} />;
 
   return (
-    <section className="wrapper" aria-live="polite">
-      <h2 className="text-2xl font-bold text-center pt-4 pb-4 mb-6 text-blue-800 border-b border-b-blue-800">
+    <section className="wrapper px-4 sm:px-6 py-6" aria-live="polite">
+      <h2 className="text-2xl font-bold text-center text-blue-800 border-b border-blue-800 pb-3">
         Current Users
       </h2>
-      <ul className="flex flex-col items-center justify-center" role="list">
+
+      <ul className="flex flex-col sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 justify-center items-center">
         {currUsers.map((user) => (
-          <li key={user.username} role="listitem">
+          <li key={user.username} role="listitem" className="w-full sm:w-auto">
             <UserCard user={user} />
           </li>
         ))}
