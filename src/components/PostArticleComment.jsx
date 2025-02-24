@@ -76,30 +76,38 @@ export default function PostArticleComment(props) {
   }
 
   return (
-    <section className="wrapper" aria-labelledby="comment-form">
+    <section
+      className="wrapper flex justify-center mb-10"
+      aria-labelledby="comment-form"
+    >
       <h2 id="comment-form" className="sr-only">
         Post a comment
       </h2>
 
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 flex flex-col justify-center items-center"
+        className="w-full max-w-[36rem] space-y-4 flex flex-col justify-center items-center bg-white p-4 sm:p-6 border border-gray-200 rounded-lg shadow-sm"
         aria-live="polite"
       >
-        <p className="text-lg text-black">
+        <p className="text-lg text-black text-center">
           What would you like to comment, {loggedInUser.username}?
         </p>
 
         <label htmlFor="comment-input" className="sr-only">
           Enter your comment
         </label>
-        <input
+        <textarea
           id="comment-input"
           value={newCommentValue}
           onChange={(e) => setNewCommentValue(e.target.value)}
           placeholder="Enter your comment here"
           required
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          rows="3"
+          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none overflow-hidden"
+          onInput={(e) => {
+            e.target.style.height = "auto";
+            e.target.style.height = e.target.scrollHeight + "px";
+          }}
         />
 
         <button
@@ -111,7 +119,7 @@ export default function PostArticleComment(props) {
           Submit comment!
         </button>
 
-        <div className="text-lg">
+        <div className="text-lg text-center">
           <p role="alert" className="text-red-500">
             {postCommentError}
           </p>
