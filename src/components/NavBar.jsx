@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function NavBar() {
   return (
-    <nav className="hidden md:flex items-center justify-center bg-blue-800 pb-4">
+    <nav className="hidden md:flex items-center justify-center bg-blue-800">
       <ul className="flex space-x-6">
         <li>
           <Link className="text-white text-lg hover:underline" to="/">
