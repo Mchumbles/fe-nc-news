@@ -9,3 +9,8 @@ body {
   touch-action: manipulation;
   overflow-x: hidden;
 }
+
+/* For Users page (Second scrollbar) sort later */
+html {
+  overflow-x: initial !important;
+}
